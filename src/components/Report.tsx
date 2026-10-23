@@ -67,7 +67,7 @@ export function Report({ name, report, overrides, onRelabel, onReset }: {
     <div ref={root}>
       <section className="wrap pt-8 pb-12 md:pt-12 md:pb-16">
         {/* Report header */}
-        <div data-in className="flex flex-col gap-4 border-b border-line pb-5 md:flex-row md:items-end md:justify-between">
+        <div data-in className="flex flex-col gap-4 border-b border-line pb-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="min-w-0">
             <p className="label text-muted">Autopsy report · Case {caseId}</p>
             <p className="mt-1 truncate text-[15px] font-medium">{name}</p>
@@ -75,15 +75,15 @@ export function Report({ name, report, overrides, onRelabel, onReset }: {
               {day(report.from)} – {day(report.to)} · {report.txns.length} transactions · {report.days} days
             </p>
           </div>
-          <div className="no-print flex flex-wrap gap-2">
-            <button type="button" onClick={onReset} className="inline-flex min-h-11 items-center gap-2 rounded-full bg-ink px-4 text-[15px] font-medium text-paper hover:opacity-90">
-              <Icon name="upload" className="size-4" /> New statement
+          <div className="no-print flex gap-2">
+            <button type="button" onClick={onReset} aria-label="New statement" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-ink px-4 text-[15px] font-medium whitespace-nowrap text-paper hover:opacity-90">
+              <Icon name="upload" className="size-4" /> New<span className="hidden sm:inline"> statement</span>
             </button>
-            <button type="button" onClick={() => window.print()} className="inline-flex min-h-11 items-center gap-2 rounded-full border border-line bg-sheet px-4 text-[15px] hover:border-ink/40">
-              <Icon name="printer" className="size-4" /> Save as PDF
+            <button type="button" onClick={() => window.print()} aria-label="Save as PDF" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-line bg-sheet px-4 text-[15px] whitespace-nowrap hover:border-ink/40">
+              <Icon name="printer" className="size-4" /> <span className="hidden sm:inline">Save as </span>PDF
             </button>
-            <button type="button" onClick={() => downloadCsv(report, name)} className="inline-flex min-h-11 items-center gap-2 rounded-full border border-line bg-sheet px-4 text-[15px] hover:border-ink/40">
-              <Icon name="download" className="size-4" /> Categorised CSV
+            <button type="button" onClick={() => downloadCsv(report, name)} aria-label="Categorised CSV" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-line bg-sheet px-4 text-[15px] whitespace-nowrap hover:border-ink/40">
+              <Icon name="download" className="size-4" /> <span className="hidden sm:inline">Categorised </span>CSV
             </button>
           </div>
         </div>
@@ -108,14 +108,14 @@ export function Report({ name, report, overrides, onRelabel, onReset }: {
         </div>
 
         {/* Vital signs */}
-        <dl data-in className="mt-10 grid grid-cols-2 overflow-hidden rounded-2xl border border-line bg-sheet md:grid-cols-4">
+        <dl data-in className="mt-10 grid grid-cols-2 overflow-hidden rounded-2xl border border-line bg-sheet lg:grid-cols-4">
           {[
             ["Money in", inr(report.moneyIn), `${inr(report.moneyIn / report.months)} a month`],
             ["Money out", inr(report.moneyOut), `${inr(spendPerMonth)} a month`],
             ["Kept", report.savingsRate === null ? "—" : pct(Math.max(report.savingsRate, -9.99)), report.savingsRate !== null && report.savingsRate < 0 ? "spent more than came in" : "of what came in"],
             ["Biggest category", report.categories[0]?.category ?? "—", report.categories[0] ? `${inr(report.categories[0].total)} · ${pct(report.categories[0].share)}` : ""],
           ].map(([label, value, sub], i) => (
-            <div key={label} className={`min-w-0 p-5 md:p-6 ${i % 2 ? "border-l border-line" : ""} ${i > 1 ? "border-t border-line md:border-t-0" : ""} ${i === 2 ? "md:border-l" : ""}`}>
+            <div key={label} className={`min-w-0 p-5 md:p-6 ${i % 2 ? "border-l border-line" : ""} ${i > 1 ? "border-t border-line lg:border-t-0" : ""} ${i === 2 ? "lg:border-l" : ""}`}>
               <dt className="label text-muted">{label}</dt>
               <dd className="num mt-2 truncate text-[clamp(1.25rem,3vw,1.75rem)] font-semibold leading-tight">{value}</dd>
               <dd className="mt-1 truncate text-[13px] text-muted">{sub}</dd>

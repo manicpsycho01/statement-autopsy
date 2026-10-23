@@ -113,7 +113,7 @@ function arjun() {
     ev.push([15, m, `ACH/BAJAJ FINANCE LTD/EMI LAPTOP/${ref(r).slice(0, 9)}`, -4210]);
     ev.push([17, m, upi("MSEDCL ELECTRICITY", "msedcl@sbi"), -(1100 + Math.round(r() * 500))]);
     ev.push([20, m, upi("JIO PREPAID", "jio@sbi"), -349]);
-    for (let k = 0; k < 22; k++) ev.push([1 + Math.floor(r() * 28), m, upi(r() < 0.5 ? "SWIGGY" : "ZOMATO", r() < 0.5 ? "swiggy@ybl" : "zomato@icici"), -(190 + Math.round(r() * 480))]);
+    for (let k = 0; k < 22; k++) { const sw = r() < 0.5; ev.push([1 + Math.floor(r() * 28), m, upi(sw ? "SWIGGY" : "ZOMATO", sw ? "swiggy@ybl" : "zomato@icici"), -(190 + Math.round(r() * 480))]); }
     for (let k = 0; k < 4; k++) ev.push([3 + k * 7, m, upi(k % 2 ? "BLINKIT" : "DMART", "grocery@ybl"), -(600 + Math.round(r() * 1700))]);
     for (let k = 0; k < 6; k++) ev.push([1 + Math.floor(r() * 28), m, upi("UBER INDIA", "uber@axisbank"), -(120 + Math.round(r() * 260))]);
     for (let k = 0; k < 10; k++) ev.push([1 + Math.floor(r() * 28), m, upi(["VAISHALI CAFE", "AMRUTTULYA TEA", "PUNE PRINTS", "GOODLUCK CAFE"][k % 4], `${9700000000 + Math.floor(r() * 1e8)}@paytm`), -(30 + Math.round(r() * 200))]);

@@ -39,7 +39,7 @@
     --color-marker-soft: #3a1f1c;
     --color-keep: #4cc287;
     --color-keep-soft: #16301f;
-    --color-highlight: #6b5a00;
+    --color-highlight: rgb(255 208 0 / 0.32);
     --color-warn: #f0a24c;
     --color-warn-soft: #3a2a14;
     --color-series-1: #3987e5;
@@ -58,12 +58,15 @@
   --color-marker-soft: #3a1f1c;
   --color-keep: #4cc287;
   --color-keep-soft: #16301f;
-  --color-highlight: #6b5a00;
+  --color-highlight: rgb(255 208 0 / 0.32);
   --color-warn: #f0a24c;
   --color-warn-soft: #3a2a14;
   --color-series-1: #3987e5;
   --color-series-2: #d95926;
 }
+
+/* Short desktop/tablet screens (laptop windows): tighter hero so the drop zone is on the first screen. */
+@custom-variant short (@media (min-width: 640px) and (max-height: 760px));
 
 @layer base {
   html { -webkit-text-size-adjust: 100%; }

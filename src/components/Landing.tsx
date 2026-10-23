@@ -53,18 +53,19 @@ export function Landing({ state, onFile, onSample, onDismiss }: {
 
   return (
     <div ref={root}>
-      <section className="wrap pt-12 pb-16 md:pt-20 md:pb-24">
+      <section className="wrap pt-8 pb-16 sm:pt-12 md:pt-20 md:pb-24 short:pt-8">
         <div data-hero className="mx-auto max-w-3xl text-center">
           <p className="label text-muted">For Indian bank statements · free · private</p>
-          <h1 className="display mt-5 text-[clamp(2.9rem,8.5vw,5.75rem)] text-balance">
+          <h1 className="display mt-4 text-[clamp(2.6rem,8.5vw,5.75rem)] text-balance sm:mt-5 short:mt-3 short:text-[clamp(2.6rem,6vw,4.25rem)]">
             Find where your money <em data-mark className="marked text-marker">leaks</em>.
           </h1>
-          <p className="mx-auto mt-6 max-w-[38rem] text-lg text-ink-2 md:text-xl">
-            Drop your bank statement. In seconds you get a plain-English report of forgotten subscriptions, bank fees, double charges and the habits that quietly cost you — with exactly what to do about each.
+          <p className="mx-auto mt-4 max-w-[38rem] text-[17px] text-ink-2 sm:mt-6 sm:text-lg md:text-xl short:mt-4 short:text-lg">
+            <span className="sm:hidden">Drop your bank statement and see what&apos;s quietly costing you — and exactly what to do about it.</span>
+            <span className="hidden sm:inline">Drop your bank statement. In seconds you get a plain-English report of forgotten subscriptions, bank fees, double charges and the habits that quietly cost you — with exactly what to do about each.</span>
           </p>
         </div>
 
-        <div className="mx-auto mt-10 max-w-3xl md:mt-12">
+        <div className="mx-auto mt-7 max-w-3xl sm:mt-10 md:mt-12 short:mt-7">
           <Dropzone state={state} onFile={onFile} onDismiss={onDismiss} />
 
           <div className={`mt-8 transition-opacity ${busy ? "pointer-events-none opacity-40" : ""}`} aria-hidden={busy}>

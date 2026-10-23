@@ -96,14 +96,14 @@ export function Dropzone({ state, onFile, onDismiss }: { state: Phase; onFile: (
         <button
           type="button"
           onClick={() => input.current?.click()}
-          className="flex w-full flex-col items-center gap-4 px-6 py-12 text-center md:py-16"
+          className="flex w-full flex-col items-center gap-3 px-5 py-8 text-center sm:gap-4 sm:px-6 sm:py-12 md:py-16 short:py-9"
           aria-describedby="drop-help"
         >
           <span className={`grid size-14 place-items-center rounded-full transition-colors ${over ? "bg-marker text-sheet" : "bg-paper text-ink group-hover:bg-ink group-hover:text-paper"}`}>
             <Icon name="upload" className="size-6" />
           </span>
           <span>
-            <span className="block text-xl font-semibold md:text-2xl">{over ? "Drop it — we'll take it from here" : "Drop your bank statement here"}</span>
+            <span className="block text-lg font-semibold sm:text-xl md:text-2xl">{over ? "Drop it — we'll take it from here" : "Drop your bank statement here"}</span>
             <span className="mt-1 block text-[15px] text-muted">
               or <span className="text-ink underline underline-offset-4">choose a file</span> · CSV, Excel or PDF
             </span>

@@ -56,3 +56,47 @@ for (const [w, h, touch] of VIEWPORTS) {
     expect(issues).toEqual([]);
   });
 }
+
+for (const [w, h, touch] of VIEWPORTS) {
+  test(`hero ${w}x${h}: headline and the drop zone are on the first screen`, async ({ browser }, info) => {
+    test.skip(info.project.name !== "desktop", "the matrix sets its own viewports");
+    test.skip(h < 500, "landscape phone: the first screen is too short for any hero; it scrolls");
+    const ctx = await browser.newContext({ viewport: { width: w, height: h }, hasTouch: !!touch, isMobile: !!touch && w < 1024, reducedMotion: "reduce", baseURL: info.project.use.baseURL });
+    const page = await ctx.newPage();
+    await page.goto("/");
+    const h1 = (await page.getByRole("heading", { level: 1 }).boundingBox())!;
+    const drop = (await page.getByRole("button", { name: /Drop your bank statement here/ }).boundingBox())!;
+    expect(h1.y).toBeGreaterThanOrEqual(0);
+    // the action must start on screen with at least its heading visible
+    expect(drop.y + Math.min(drop.height, 120), `drop zone at ${Math.round(drop.y)}`).toBeLessThanOrEqual(h);
+    await ctx.close();
+  });
+}
+
+for (const [w, h, touch] of [[390, 844, 1], [768, 1024, 1], [1280, 600, 0], [1440, 900, 0]] as const) {
+  test(`scrolling with animations ${w}x${h}: nothing overlaps once each section has settled`, async ({ browser }, info) => {
+    test.skip(info.project.name !== "desktop", "the matrix sets its own viewports");
+    const ctx = await browser.newContext({ viewport: { width: w, height: h }, hasTouch: !!touch, isMobile: !!touch && w < 1024, baseURL: info.project.use.baseURL });
+    const page = await ctx.newPage();
+    const walk = async (tag: string) => {
+      const out: string[] = [];
+      const total = await page.evaluate(() => document.documentElement.scrollHeight);
+      for (let y = 0; y < total; y += Math.round(h * 0.8)) {
+        await page.mouse.wheel(0, y === 0 ? 0 : Math.round(h * 0.8));
+        await page.waitForTimeout(1100);
+        out.push(...(await audit(page, 0)).filter((x) => !x.startsWith("small target")).map((x) => `${tag} @${y}: ${x}`));
+      }
+      return [...new Set(out)];
+    };
+    await page.goto("/");
+    await page.waitForTimeout(1200);
+    const issues = await walk("landing");
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.getByRole("button", { name: /Priya/ }).click();
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(/You could keep/, { timeout: 15_000 });
+    await page.waitForTimeout(1600);
+    issues.push(...(await walk("report")));
+    await ctx.close();
+    expect(issues).toEqual([]);
+  });
+}

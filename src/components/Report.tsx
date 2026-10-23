@@ -40,6 +40,9 @@ export function Report({ name, report, overrides, onRelabel, onReset }: {
   const [filter, setFilter] = useState<LockerFilter>({ category: "all", ids: null, label: null });
   const healthy = report.canSave < 1000;
   const spendPerMonth = report.moneyOut / report.months;
+  // The totals cover the whole statement; say so, so the monthly average underneath reads as an average.
+  const monthsCovered = Math.round(report.days / 30.44);
+  const span = monthsCovered >= 1 ? `over ${monthsCovered} ${monthsCovered === 1 ? "month" : "months"}` : `over ${report.days} days`;
   const caseId = useMemo(() => caseNo(name, report.txns.length), [name, report.txns.length]);
 
   useGSAP(() => {
@@ -110,15 +113,15 @@ export function Report({ name, report, overrides, onRelabel, onReset }: {
         {/* Vital signs */}
         <dl data-in className="mt-10 grid grid-cols-2 overflow-hidden rounded-2xl border border-line bg-sheet lg:grid-cols-4">
           {[
-            ["Money in", inr(report.moneyIn), `${inr(report.moneyIn / report.months)} a month`],
-            ["Money out", inr(report.moneyOut), `${inr(spendPerMonth)} a month`],
-            ["Kept", report.savingsRate === null ? "—" : pct(Math.max(report.savingsRate, -9.99)), report.savingsRate !== null && report.savingsRate < 0 ? "spent more than came in" : "of what came in"],
+            ["Money in", inr(report.moneyIn), `${span}\navg ${inr(report.moneyIn / report.months)}/month`],
+            ["Money out", inr(report.moneyOut), `${span}\navg ${inr(spendPerMonth)}/month`],
+            ["Saved", report.savingsRate === null ? "—" : pct(Math.max(report.savingsRate, -9.99)), report.savingsRate !== null && report.savingsRate < 0 ? "spent more than came in" : "of what came in"],
             ["Biggest category", report.categories[0]?.category ?? "—", report.categories[0] ? `${inr(report.categories[0].total)} · ${pct(report.categories[0].share)}` : ""],
           ].map(([label, value, sub], i) => (
             <div key={label} className={`min-w-0 p-5 md:p-6 ${i % 2 ? "border-l border-line" : ""} ${i > 1 ? "border-t border-line lg:border-t-0" : ""} ${i === 2 ? "lg:border-l" : ""}`}>
               <dt className="label text-muted">{label}</dt>
               <dd className="num mt-2 truncate text-[clamp(1.25rem,3vw,1.75rem)] font-semibold leading-tight">{value}</dd>
-              <dd className="mt-1 truncate text-[13px] text-muted">{sub}</dd>
+              <dd className="mt-1 text-[13px] leading-snug whitespace-pre-line text-muted">{sub}</dd>
             </div>
           ))}
         </dl>

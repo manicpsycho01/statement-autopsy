@@ -90,6 +90,9 @@ test.describe("the report", () => {
     await expect(page.getByRole("heading", { name: /a year on food delivery/ })).toBeVisible();
     await expect(page.getByText("Could save").first()).toBeVisible();
     await expect(page.locator("main")).not.toContainText(/could keep|would keep/i);
+    // totals say what period they cover, so the monthly average reads as an average
+    await expect(page.locator("dd", { hasText: "over 3 months" }).first()).toContainText("avg ₹96,672/month");
+    await expect(page.locator("dt", { hasText: "Saved" })).toBeVisible();
   });
 
   test("'See the payments' filters the evidence locker to exactly that finding", async ({ page }) => {

@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+/* Paper-and-ink report. One accent: the marker red for leaks; green only for money you keep. */
+@theme {
+  --color-paper: #f5f3ee;
+  --color-sheet: #ffffff;
+  --color-ink: #141412;
+  --color-ink-2: #3d3b37;
+  --color-muted: #6b6862;
+  --color-line: rgb(20 20 18 / 0.12);
+  --color-line-2: rgb(20 20 18 / 0.06);
+  --color-marker: #c8322b;
+  --color-marker-soft: #f8e3e0;
+  --color-keep: #0f7b4a;
+  --color-keep-soft: #def1e6;
+  --color-highlight: #ffe766;
+  --color-warn: #b45d0b;
+  --color-warn-soft: #fbecd9;
+  --color-series-1: #2a78d6;
+  --color-series-2: #eb6834;
+
+  --font-display: var(--font-serif), "Times New Roman", serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jet), ui-monospace, monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-paper: #141412;
+    --color-sheet: #1c1b19;
+    --color-ink: #f2f0ea;
+    --color-ink-2: #d4d1c9;
+    --color-muted: #a19d94;
+    --color-line: rgb(242 240 234 / 0.14);
+    --color-line-2: rgb(242 240 234 / 0.07);
+    --color-marker: #ef6a5f;
+    --color-marker-soft: #3a1f1c;
+    --color-keep: #4cc287;
+    --color-keep-soft: #16301f;
+    --color-highlight: #6b5a00;
+    --color-warn: #f0a24c;
+    --color-warn-soft: #3a2a14;
+    --color-series-1: #3987e5;
+    --color-series-2: #d95926;
+  }
+}
+:root[data-theme="dark"] {
+  --color-paper: #141412;
+  --color-sheet: #1c1b19;
+  --color-ink: #f2f0ea;
+  --color-ink-2: #d4d1c9;
+  --color-muted: #a19d94;
+  --color-line: rgb(242 240 234 / 0.14);
+  --color-line-2: rgb(242 240 234 / 0.07);
+  --color-marker: #ef6a5f;
+  --color-marker-soft: #3a1f1c;
+  --color-keep: #4cc287;
+  --color-keep-soft: #16301f;
+  --color-highlight: #6b5a00;
+  --color-warn: #f0a24c;
+  --color-warn-soft: #3a2a14;
+  --color-series-1: #3987e5;
+  --color-series-2: #d95926;
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background: var(--color-highlight); color: var(--color-ink); }
+  :focus-visible { outline: 2px solid var(--color-series-1); outline-offset: 3px; border-radius: 6px; }
+  button { cursor: pointer; }
+}
+
+@utility label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.02;
+}
+@utility num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+@utility wrap {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 1120px;
+  padding-inline: max(1rem, env(safe-area-inset-left));
+  @media (min-width: 768px) { padding-inline: 2rem; }
+}
+/* A highlighter stroke behind key words and figures. */
+@utility marked {
+  background-image: linear-gradient(transparent 58%, var(--color-highlight) 58%, var(--color-highlight) 92%, transparent 92%);
+  background-repeat: no-repeat;
+  background-size: var(--mark, 100%) 100%;
+  padding-inline: 0.06em;
+}
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* Scanner line while a statement is read */
+@keyframes scan { 0% { transform: translateY(-10%); } 100% { transform: translateY(110%); } }
+.scanline { animation: scan 1.4s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate; }
+@media (prefers-reduced-motion: reduce) {
+  .scanline { animation: none; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+
+@media print {
+  @page { margin: 14mm; }
+  body { background: #fff; color: #000; font-size: 11pt; }
+  .no-print { display: none !important; }
+  .print-break { break-inside: avoid; }
+  details > *:not(summary) { display: block !important; }
+}

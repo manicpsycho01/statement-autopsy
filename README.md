@@ -2,7 +2,7 @@
 
 **Find where your money leaks.** Drop an Indian bank statement (CSV, Excel or PDF) and get a plain-English report of forgotten subscriptions, bank fees, double charges and spending habits, with what to do about each.
 
-**Live:** https://statement-autopsy.vercel.app
+**Live:** https://statement-autopsy-teal.vercel.app
 
 Everything runs in your browser. The file is never uploaded: there's no server, no database, no account and no AI service.
 

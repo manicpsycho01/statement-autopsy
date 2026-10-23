@@ -141,9 +141,9 @@ describe("the autopsy", () => {
   it("ranks high-severity findings first; the headline is the sum of realistic savings", () => {
     const sev = priya.findings.map((f) => f.severity);
     expect(sev.indexOf("low") === -1 || sev.lastIndexOf("high") < sev.indexOf("low")).toBe(true);
-    expect(priya.canKeep).toBeCloseTo(priya.findings.reduce((s, f) => s + f.saving, 0), 2);
+    expect(priya.canSave).toBeCloseTo(priya.findings.reduce((s, f) => s + f.saving, 0), 2);
     // never claims more than was actually spent on those things
-    expect(priya.canKeep).toBeLessThan(priya.moneyOut / (priya.days / 365));
+    expect(priya.canSave).toBeLessThan(priya.moneyOut / (priya.days / 365));
   });
   it("counts a card's annual fee once a year, not four times", () => {
     const f = find(priya, "fees")!;

@@ -50,7 +50,7 @@ for (const [w, h, touch] of VIEWPORTS) {
     await page.goto("/");
     const issues = (await audit(page, touch)).map((x) => `landing: ${x}`);
     await page.getByRole("button", { name: /Priya/ }).click();
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText(/You could keep/, { timeout: 15_000 });
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(/You could save/, { timeout: 15_000 });
     issues.push(...(await audit(page, touch)).map((x) => `report: ${x}`));
     await ctx.close();
     expect(issues).toEqual([]);
@@ -93,7 +93,7 @@ for (const [w, h, touch] of [[390, 844, 1], [768, 1024, 1], [1280, 600, 0], [144
     const issues = await walk("landing");
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.getByRole("button", { name: /Priya/ }).click();
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText(/You could keep/, { timeout: 15_000 });
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(/You could save/, { timeout: 15_000 });
     await page.waitForTimeout(1600);
     issues.push(...(await walk("report")));
     await ctx.close();

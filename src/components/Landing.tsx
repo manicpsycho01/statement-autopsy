@@ -17,7 +17,7 @@ const CHECKS: { icon: IconName; title: string; body: string }[] = [
   { icon: "repeat", title: "Subscriptions", body: "Every recurring charge, overlapping streaming apps, and quiet price rises." },
   { icon: "bank", title: "Bank fees", body: "SMS alerts, card fees, minimum-balance penalties, bounce charges, forex markup." },
   { icon: "copy", title: "Double charges", body: "The same amount to the same merchant twice within two days." },
-  { icon: "bag", title: "Food delivery", body: "How often you order, what each order costs, and what a small change keeps." },
+  { icon: "bag", title: "Food delivery", body: "How often you order, what each order costs, and what a small change saves." },
   { icon: "coins", title: "Small spends", body: "₹40 here, ₹120 there — the payments you never notice, added up." },
   { icon: "eye", title: "Cash", body: "How much left as cash, where it can no longer be tracked." },
 ];

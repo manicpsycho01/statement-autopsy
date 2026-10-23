@@ -52,7 +52,7 @@ test("dropping a file anywhere on the page", async ({ page }) => {
   }, buffer);
   await page.dispatchEvent("body", "drop", { dataTransfer: dt });
   await expect(page.getByText("dropped.csv")).toBeVisible({ timeout: 15_000 });
-  await expect(verdict(page)).toHaveText(/You could keep/, { timeout: 15_000 });
+  await expect(verdict(page)).toHaveText(/You could save/, { timeout: 15_000 });
 });
 
 test("password-protected PDF: asks, rejects a wrong password, opens with the right one", async ({ page }) => {
@@ -80,7 +80,7 @@ test.describe("the report", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
     await page.getByRole("button", { name: /Priya/ }).click();
-    await expect(verdict(page)).toHaveText(/You could keep/, { timeout: 15_000 });
+    await expect(verdict(page)).toHaveText(/You could save/, { timeout: 15_000 });
   });
 
   test("findings list subscriptions, fees, double charge and delivery with savings", async ({ page }) => {
@@ -88,7 +88,8 @@ test.describe("the report", () => {
     await expect(page.getByRole("heading", { name: /Your bank charged you ₹625 in fees/ })).toBeVisible();
     await expect(page.getByRole("heading", { name: /1 possible double charge/ })).toBeVisible();
     await expect(page.getByRole("heading", { name: /a year on food delivery/ })).toBeVisible();
-    await expect(page.getByText("Could keep").first()).toBeVisible();
+    await expect(page.getByText("Could save").first()).toBeVisible();
+    await expect(page.locator("main")).not.toContainText(/could keep|would keep/i);
   });
 
   test("'See the payments' filters the evidence locker to exactly that finding", async ({ page }) => {

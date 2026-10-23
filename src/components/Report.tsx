@@ -38,7 +38,7 @@ export function Report({ name, report, overrides, onRelabel, onReset }: {
   const root = useRef<HTMLDivElement>(null);
   const locker = useRef<HTMLElement>(null);
   const [filter, setFilter] = useState<LockerFilter>({ category: "all", ids: null, label: null });
-  const healthy = report.canKeep < 1000;
+  const healthy = report.canSave < 1000;
   const spendPerMonth = report.moneyOut / report.months;
   const caseId = useMemo(() => caseNo(name, report.txns.length), [name, report.txns.length]);
 
@@ -97,7 +97,7 @@ export function Report({ name, report, overrides, onRelabel, onReset }: {
             </h1>
           ) : (
             <h1 className="display mt-3 text-[clamp(2.6rem,7vw,5rem)] text-balance">
-              You could keep about <span className="marked num whitespace-nowrap" data-count={report.canKeep}>{inr(Math.round(report.canKeep / 100) * 100)}</span> a year.
+              You could save about <span className="marked num whitespace-nowrap" data-count={report.canSave}>{inr(Math.round(report.canSave / 100) * 100)}</span> a year.
             </h1>
           )}
           <p className="mt-4 max-w-2xl text-lg text-ink-2">

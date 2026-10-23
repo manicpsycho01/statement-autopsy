@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Paper-and-ink report. One accent: the marker red for leaks; green only for money you keep. */
+/* Paper-and-ink report. One accent: the marker red for leaks; green only for money you save. */
 @theme {
   --color-paper: #f5f3ee;
   --color-sheet: #ffffff;

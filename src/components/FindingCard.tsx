@@ -43,7 +43,7 @@ export function FindingCard({ n, finding: f, onEvidence }: { n: number; finding:
           </div>
           {f.saving > 0 && (
             <div className="rounded-xl bg-keep-soft p-4 md:p-5">
-              <p className="label text-keep">{f.id === "duplicates" ? "Could get back" : "Could keep"}</p>
+              <p className="label text-keep">{f.id === "duplicates" ? "Could get back" : "Could save"}</p>
               <p className="num mt-1 text-2xl font-semibold">
                 {inr(f.saving)}
                 {f.id !== "duplicates" && <span className="text-base font-normal text-ink-2"> a year</span>}

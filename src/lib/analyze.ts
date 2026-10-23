@@ -18,7 +18,7 @@ export type Finding = {
   yearly: number;
   /** Amount in the statement period. */
   total: number;
-  /** What the suggested action realistically keeps per year (counted in the headline). */
+  /** What the suggested action realistically saves per year (counted in the headline). */
   saving: number;
   savingNote: string;
   severity: "high" | "medium" | "low";
@@ -39,7 +39,7 @@ export type Report = {
   savingsRate: number | null;
   findings: Finding[];
   /** Sum of every finding's realistic saving per year. */
-  canKeep: number;
+  canSave: number;
   subscriptions: Subscription[];
   categories: { category: Category; total: number; count: number; share: number }[];
   monthly: { month: string; label: string; in: number; out: number }[];
@@ -192,7 +192,7 @@ export function analyze(raw: RawTxn[], overrides?: Map<string, Category>): Repor
       id: "delivery",
       title: `${inr(perYear(total))} a year on food delivery`,
       detail: `${plural(delivery.length, "order")} in ${Math.round(span / 7)} weeks — about ${perWeek.toFixed(1)} a week at ${inr(avg)} each, before tips.`,
-      action: `Cooking ${Math.min(2, Math.max(1, Math.round(perWeek / 2)))} of those meals a week instead would keep roughly ${inr(saving)} a year in your account.`,
+      action: `Cooking ${Math.min(2, Math.max(1, Math.round(perWeek / 2)))} of those meals a week instead would save roughly ${inr(saving)} a year.`,
       yearly: perYear(total),
       total,
       saving,
@@ -269,7 +269,7 @@ export function analyze(raw: RawTxn[], overrides?: Map<string, Category>): Repor
 
   const order = { high: 0, medium: 1, low: 2 };
   findings.sort((a, b) => order[a.severity] - order[b.severity] || b.yearly + b.total - (a.yearly + a.total));
-  const canKeep = sum(findings.map((f) => f.saving));
+  const canSave = sum(findings.map((f) => f.saving));
 
   // Categories & months
   const catMap = new Map<Category, { total: number; count: number }>();
@@ -287,6 +287,6 @@ export function analyze(raw: RawTxn[], overrides?: Map<string, Category>): Repor
   return {
     txns, from, to, days: span, months, moneyIn, moneyOut,
     savingsRate: moneyIn > 0 ? (moneyIn - moneyOut) / moneyIn : null,
-    findings, canKeep, subscriptions, categories, monthly, topMerchants,
+    findings, canSave, subscriptions, categories, monthly, topMerchants,
   };
 }

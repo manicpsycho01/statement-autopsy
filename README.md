@@ -17,7 +17,7 @@ Everything runs in your browser. The file is never uploaded: there's no server, 
 | Small spends | Payments of ₹250 or less that add up. |
 | Cash | Money withdrawn at ATMs, which can't be tracked after that. |
 
-The headline ("You could keep about ₹X a year") adds up only concrete savings:
+The headline ("You could save about ₹X a year") adds up only concrete savings:
 - avoidable fees;
 - cancelling overlapping subscriptions;
 - cooking one or two delivery meals a week;

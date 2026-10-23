@@ -168,8 +168,13 @@ export function Footer() {
     <footer className="no-print border-t border-line">
       <div className="wrap flex flex-col gap-2 py-8 text-[13px] text-muted md:flex-row md:justify-between">
         <p>Not financial advice. Figures are estimates from your statement.</p>
-        <p>
-          Built by <a href="https://aravind-portfolio-theta.vercel.app" className="underline underline-offset-4 hover:text-ink">Aravind Srinivasan</a>
+        <p className="flex flex-wrap gap-x-5 gap-y-1">
+          <a href={REPO} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 underline underline-offset-4 hover:text-ink">
+            <Icon name="github" className="size-3.5" /> Source code on GitHub
+          </a>
+          <span>
+            Built by <a href="https://aravind-portfolio-theta.vercel.app" className="underline underline-offset-4 hover:text-ink">Aravind Srinivasan</a>
+          </span>
         </p>
       </div>
     </footer>

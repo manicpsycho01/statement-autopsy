@@ -130,3 +130,10 @@ test.describe("the report", () => {
     await expect(verdict(page)).toHaveText(/Find where your money leaks/);
   });
 });
+
+test("header states the privacy promise; the source link lives in the footer", async ({ page, isMobile }) => {
+  await page.goto("/");
+  await expect(page.locator("header")).toContainText(isMobile ? "Never uploaded" : "Your file never leaves this device");
+  await expect(page.locator("header a[href*='github.com']")).toHaveCount(0);
+  await expect(page.locator("footer").getByRole("link", { name: /Source code on GitHub/ })).toHaveAttribute("href", "https://github.com/manicpsycho01/statement-autopsy");
+});

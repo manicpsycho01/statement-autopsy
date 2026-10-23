@@ -22,19 +22,11 @@ export function SiteHeader({ onHome }: { onHome?: () => void }) {
             {brand}
           </a>
         )}
-        <div className="flex items-center gap-2">
-          <span className="label hidden items-center gap-2 rounded-full border border-line px-3 py-2 text-muted sm:inline-flex">
-            <Icon name="lock" className="size-3.5" /> Runs on your device
-          </span>
-          <a
-            href={REPO}
-            target="_blank"
-            rel="noreferrer"
-            className="label inline-flex min-h-11 items-center gap-2 rounded-full px-3 text-muted transition-colors hover:text-ink"
-          >
-            <Icon name="github" className="size-4" /> <span className="hidden sm:inline">Source</span>
-          </a>
-        </div>
+        <p className="label inline-flex min-h-9 items-center gap-2 rounded-full border border-line px-3 text-muted">
+          <Icon name="lock" className="size-3.5 shrink-0" />
+          <span className="sm:hidden">Never uploaded</span>
+          <span className="hidden sm:inline">Your file never leaves this device</span>
+        </p>
       </div>
     </header>
   );
